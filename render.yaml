@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: projekt-backend
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: DATABASE
+        value: ./db/bobagarden.db
+      - key: JWT_SECRET_KEY
+        value: dt207gprojektbobagarden
