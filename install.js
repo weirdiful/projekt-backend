@@ -32,3 +32,23 @@ db.serialize(() => {
 
   console.log("Databasen är skapad.");
 });
+
+const bcrypt = require("bcrypt");
+
+bcrypt.hash("admin123", 10, (err, hashedPassword) => {
+  if (err) {
+    console.error("Fel vid hashning:", err);
+    return;
+  }
+
+  db.run(`
+    INSERT INTO users (username, password)
+    VALUES (?, ?)
+  `, ["admin", hashedPassword], (err) => {
+    if (err) {
+      console.error("Kunde inte skapa adminkonto:", err);
+    } else {
+      console.log("Adminkonto skapat: admin / admin123");
+    }
+  });
+});
